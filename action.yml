@@ -20,7 +20,7 @@ runs:
         const perm = await github.rest.repos.getCollaboratorPermissionLevel({
           owner: context.repo.owner, repo: context.repo.repo,
           username: context.payload.comment.user.login})
-        post = (context.eventName == "issue_comment"
+        const post = (context.eventName == "issue_comment"
           ? github.rest.reactions.createForIssueComment
           : github.rest.reactions.createForPullRequestReviewComment)
         if (!["admin", "write"].includes(perm.data.permission)){
@@ -47,7 +47,7 @@ runs:
     uses: actions/github-script@v7
     with:
       script: |
-        post = (context.eventName == "issue_comment"
+        const post = (context.eventName == "issue_comment"
           ? github.rest.reactions.createForIssueComment
           : github.rest.reactions.createForPullRequestReviewComment)
         post({
